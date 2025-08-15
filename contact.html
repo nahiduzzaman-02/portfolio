@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — Portfolio</title>
+  <meta name="description" content="Personal portfolio website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script defer src="assets/js/main.js"></script>
+  <style>
+    .success-message {
+      color: green;
+      margin-top: 10px;
+    }
+    .error-message {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="index.html">
+      <span class="logo" aria-hidden="true">⚡</span>
+      <span class="brand-text">My</span>
+    </a>
+    <nav class="nav">
+      <button id="menuToggle" class="menu-toggle" aria-label="Toggle navigation">☰</button>
+      <ul id="navList" class="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="activity.html">Activity</a></li>
+        <li><a href="passion.html">Passion</a></li>
+        <li><a href="achievement.html">Achievement</a></li>
+        <li><a href="contact.html" class="active">Contact Me</a></li>
+        <li><button id="themeToggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle theme">🌓</button></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="container">
+    <h1 class="section-title reveal">Contact Me</h1>
+    <p class="lead reveal">Have a question or want to work together? Send a message.</p>
+    <!-- Replace YOUR_FORM_ID with your Formspree endpoint -->
+    <form class="contact-form reveal" id="contactForm" action="https://formspree.io/f/myzpvvjj" method="POST">
+      <div class="row">
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required />
+          <small class="error" id="nameError"></small>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          <small class="error" id="emailError"></small>
+        </div>
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="6" placeholder="Write your message..." required></textarea>
+        <small class="error" id="messageError"></small>
+      </div>
+      <div class="actions">
+        <button type="submit" class="btn primary">Send</button>
+        <p class="form-note">Your message will be sent securely.</p>
+      </div>
+      <p id="formStatus" class="success-message" style="display:none;">✅ Your message was sent successfully!</p>
+      <p id="formError" class="error-message" style="display:none;">❌ Oops! Something went wrong. Please try again.</p>
+    </form>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container foot-grid">
+    <div>
+      <h4>About this site</h4>
+      <p>A clean, lightweight portfolio built with pure HTML, CSS, and JS.</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <ul class="links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="activity.html">Activity</a></li>
+        <li><a href="passion.html">Passion</a></li>
+        <li><a href="achievement.html">Achievement</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+      <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+      <h4>Follow</h4>
+      <div class="socials">
+        <a href="https://www.facebook.com/share/15kn5xLcWB/" aria-label="Facebook"><ion-icon name="logo-facebook"></ion-icon></a>
+        <a href="https://www.instagram.com/noyon.rahman_?igsh=dDBvYjR3bHNwYjY=" aria-label="Instagram"><ion-icon name="logo-instagram"></ion-icon></a>
+        <a href="https://www.linkedin.com/in/nahiduzzaman-69114b184/" aria-label="LinkedIn"><ion-icon name="logo-linkedin"></ion-icon></a>
+        <a href="https://github.com/nahiduzzaman-01" aria-label="GitHub"><ion-icon name="logo-github"></ion-icon></a>
+      </div>
+    </div>
+  </div>
+  <div class="container tiny">
+    <p>© <span id="year"></span> Md Nahiduzzaman — All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+document.getElementById("contactForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+  
+  const form = e.target;
+  const status = document.getElementById("formStatus");
+  const error = document.getElementById("formError");
+
+  status.style.display = "none";
+  error.style.display = "none";
+
+  const data = new FormData(form);
+  try {
+    const res = await fetch(form.action, {
+      method: form.method,
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      status.style.display = "block";
+      form.reset();
+    } else {
+      error.style.display = "block";
+    }
+  } catch {
+    error.style.display = "block";
+  }
+});
+</script>
+</body>
+</html>
